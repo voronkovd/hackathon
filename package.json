@@ -1,12 +1,52 @@
 {
   "name": "hackathon",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "lint": "eslint src/."
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "airbnb-base"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "import"
+    ],
+    "rules": {
+      "import/no-unresolved": 0,
+      "import/extensions": 0,
+      "no-redeclare": 0,
+      "no-unused-vars": 0,
+      "no-underscore-dangle": 0,
+      "no-shadow": 0,
+      "class-methods-use-this": 0
+    },
+    "root": true,
+    "env": {
+      "jest": true
+    }
   },
   "dependencies": {
-    "hono": "^4.6.2"
+    "dotenv": "^16.4.5",
+    "hono": "^4.6.2",
+    "mongoose": "^8.6.3",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "^1.1.9",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^9.10.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.30.0",
+    "typescript": "^5.6.2"
   }
 }
