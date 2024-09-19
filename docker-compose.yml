@@ -1,0 +1,35 @@
+services:
+  app-mongodb:
+    image: mongo:8.0.0-rc4
+    container_name: my-mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=hackathon
+    volumes:
+      # seeding scripts
+      - ./mongo-entrypoint:/docker-entrypoint-initdb.d
+      # named volumes
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+    networks:
+      - hackathon
+  app:
+    image: "oven/bun"
+    entrypoint: ["bun", "dev"]
+    command: "/bin/sh -c 'bun install && bun run --watch src/index.ts'"
+    ports: ["3000:3000"]
+    volumes: ["./:/home/bun/app"]
+    networks:
+      - hackathon
+    depends_on:
+      - app-mongodb
+
+volumes:
+  mongodb:
+  mongoconfig:
+
+networks:
+  hackathon:
+    driver: bridge
+
